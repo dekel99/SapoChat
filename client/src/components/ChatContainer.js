@@ -15,6 +15,14 @@ export default function ChatContanier(props) {
   const [chatList, setChatlist] = useState([])
   const [loggedUsers, setloggedUsers] = useState([])
 
+  function getTime(){
+    const time = new Date().toLocaleTimeString(navigator.language, {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+    return time
+  }
+
   // Scrolling to bottom vanilla js **
   function scrollToBot(){
     var element = document.getElementById("chat-id");
@@ -22,51 +30,45 @@ export default function ChatContanier(props) {
   }
 
   // Trigers when user click send message and update the message to chatList array **
-  function handleSendText(text){
-    setChatlist(prevValue => { return (
-      [...prevValue,text])
-    })
+  async function handleSendText(text){
+    const time = getTime()
+    await setChatlist([...chatList,{message: text, name: name, time: time}])
+    scrollToBot()
   }
 
   // --------------------------------------------COMUNICATION WITH SERVER-----------------------------------------
 
-
-  //Map trigger changes to true when client enters chat **
+  // Map trigger changes to true when client enters chat **
   if (mapTrigger && i===0){
     socket.emit("details", name)
     i++
   }
 
-  //Callback from server when somone entered chat **
+  // Callback from server when somone entered chat **
   socket.on("details", (messagesDB, onlineUsers) => {
     setloggedUsers(onlineUsers)
     setChatlist(messagesDB)
     scrollToBot()
   })
 
-  //Runs when somone quit **
+  // Runs when somone quit **
   socket.on("userLeft", newUserList => {
       setloggedUsers(newUserList)
     })
 
-  //forward message to server **
+  // Forward message to server **
   function sendMessToServer(message){
-    const time = new Date().toLocaleTimeString(navigator.language, {
-      hour: "2-digit",
-      minute: "2-digit"
-    });
+    const time = getTime()
     socket.emit("message", { name, message, time })
   }
 
-  //Get message from server **
+  // Get message from server **
   socket.on("message", (messagesDB) =>{
     setChatlist(messagesDB)
     scrollToBot()
   })
 
-
   // --------------------------------------------END COMUNICATION WITH SERVER-----------------------------------------
-
 
   return (
     <div>
