@@ -1,0 +1,178 @@
+h3 {
+  color: white;
+  font-size: 1.25rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+hr {
+  display: inline-flex;
+  width: 22%;
+  margin: 3px;
+  border: 0;
+  height: 0;
+  border-top: 1px solid black;
+}
+
+.register-block{
+  text-align: center;
+}
+
+.local-auth-boutton {
+  margin: 30px;
+}
+
+.or {
+  display: inline;
+}
+
+.register-button {
+  color: white;
+  text-decoration: unset;
+}
+
+.login-button {
+  color: white;
+  text-decoration: unset;
+}
+
+.App {
+  text-align: center;
+}
+
+.google-auth {
+  margin: 2rem;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.enter-name-form{
+  width: 50%;
+  text-align: center;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 2rem;
+}
+
+.sender-name{
+  text-align: left;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.chat-box{
+  margin: auto;
+  width: 750px;
+  height: 900px;
+  background: #ced1da;
+  border-radius: 5px;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  overflow: auto;
+  bottom: 0em;
+}
+
+
+
+.chat-input{
+}
+
+.ul-users{
+  text-align: center;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+/* .div-users{
+  margin-left: 100px;
+} */
+
+.logged-users-container{
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+  position: absolute;
+  background-color: azure;
+  height: auto;
+  width: auto;
+  border-radius: 5px;
+}
+
+.user-name {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  padding-left: 5px;
+}
+
+.default-user-pic{
+  display: inline-block;
+  height: 35px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  margin-top: 22px;
+}
+
+.default-user-pic-profile{
+  display: inline-block;
+  height: 50px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.user-n-img{
+  margin: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+}
+
+@media (max-width: 800px) {
+  .chat-box{
+    margin-top: 10px;
+    width: 80%;
+    height: 550px;
+    bottom: 200px;
+  }
+  .chat-input{
+    position: absolute;
+    bottom: 50px;
+    left: 3%;
+    background-color: azure;
+    padding: 15px;
+    padding-top: 5px;
+    border-radius: 5px;
+    width: 88%;
+    height: 50px;
+    margin: auto;
+  }
+  .send-button{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+
