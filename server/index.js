@@ -105,8 +105,6 @@ function(accessToken, refreshToken, profile, cb) {
 }
 ));
 
-
-
 // --------------------------------------------SOCKET.IO HANDLE-----------------------------------------
 let loggedUsers = [] // Logged users list
 
@@ -121,22 +119,40 @@ Message.find((err, messagesDB) =>{
   }
 })
 
-//Creates connection between back and front **
+// Creates connection between back and front **
 io.on('connection', (socket) => {
 
-  //Runs when someone connect to chat **
-  socket.on("details", name => {
+  // Runs when someone connect to chat **
+  socket.on("details", (name) => { 
+    // User.find({username: name}, (err, foundUser) => {
+    //   if (foundUser[0]){ 
+    //    const profilePic = foundUser[0].profilePic 
+
+    //    loggedUsers.push({name: name, id: socket.id, profilePic: profilePic})
+    //    newUser = new Message ({
+    //      name: "Alert",
+    //      message: name + " connected to chat!"
+    //    })
+    //   } else {
+    //     loggedUsers.push({name: name, id: socket.id})
+    //     return newUser = new Message ({
+    //       name: "Alert",
+    //       message: name + " connected to chat!"
+    //     })
+    //   }
+    // }) 
+    
     loggedUsers.push({name: name, id: socket.id})
     newUser = new Message ({
       name: "Alert",
       message: name + " connected to chat!"
     })
-    
+
     saveNewMess()
     async function saveNewMess(){
       await newUser.save()
 
-      //Returns somthing to client when enters chat
+      // Returns somthing to client when enters chat **
       Message.find((err, messagesDB) => {
        if (!err){
           io.emit("details", messagesDB, loggedUsers)
@@ -145,13 +161,13 @@ io.on('connection', (socket) => {
     }
   })
   
-  //Runs when recieves message from client **
+  // Runs when recieves message from client **
   socket.on("message", ({name, message, time}) => {
     saveMess()
 
     async function saveMess(){
 
-      //Saves new message in DB **
+      // Saves new message in DB **
       message = new Message({
         name: name, 
         message: message,
