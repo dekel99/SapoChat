@@ -38,6 +38,11 @@ hr {
   text-decoration: unset;
 }
 
+.register-err{
+  color: rgb(194, 8, 8);
+  margin-bottom: 10px;
+}
+
 .login-button {
   color: white;
   text-decoration: unset;

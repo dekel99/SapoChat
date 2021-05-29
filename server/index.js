@@ -14,6 +14,7 @@ const passportLocalMongoose = require("passport-local-mongoose")
 const cors = require ("cors")
 const multer = require ("multer")
 const path = require("path")
+const { response } = require("express")
 require("dotenv").config()
 
 
@@ -21,7 +22,7 @@ require("dotenv").config()
 app.use(cors({ origin: "http://localhost:3000", credentials: true})) // Enable getting requests from client
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static("public"));
-var nameInStorage = ""
+app.use(bodyParser.json());
 
 // Reformating **
 const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID } = process.env 
@@ -217,8 +218,7 @@ io.on('connection', (socket) => {
 
 // Saves new user in database and authenticate him **
 app.post('/register', function (req, res) {
-  const { username, password, confirmPassword } = req.body
-  if (password === confirmPassword) {
+  const { username, password } = req.body
     User.register({username: username}, password, function(err, user){
       if (err){
         res.redirect("http://localhost:3000/register")
@@ -229,15 +229,13 @@ app.post('/register', function (req, res) {
           User.findOneAndUpdate({username: username}, {profilePic: "https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"}, err => { // Insert default pic to database on every new user
             if (err){
               console.log(err)
-            } 
+            } else {
+              res.send(true)
+            }
           })
-          res.redirect("http://localhost:3000/")
         })
       }
     })
-  } else {
-    console.log("password does not match")
-  }
 })
 
 // Authenticate user with entered details from login form **
@@ -252,10 +250,9 @@ app.post("/login", function(req, res){
   req.login(user,function(err){
     if(err){
       console.log(err)
-      res.redirect("http://localhost:3000/login")
     } else {
       passport.authenticate("local")(req, res, function() {
-        res.redirect("http://localhost:3000/")
+        res.send(true)
       })
     }
   })
