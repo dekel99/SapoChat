@@ -217,23 +217,27 @@ io.on('connection', (socket) => {
 
 // Saves new user in database and authenticate him **
 app.post('/register', function (req, res) {
-  const { username , password } = req.body
-  User.register({username: username}, password, function(err, user){
-    if (err){
-      res.redirect("http://localhost:3000/register")
-      console.log(err)
-    } 
-    else {
-      passport.authenticate("local")(req, res, function() {
-        User.findOneAndUpdate({username: username}, {profilePic: "https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"}, err => { // Insert default pic to database on every new user
-          if (err){
-            console.log(err)
-          } 
+  const { username, password, confirmPassword } = req.body
+  if (password === confirmPassword) {
+    User.register({username: username}, password, function(err, user){
+      if (err){
+        res.redirect("http://localhost:3000/register")
+        console.log(err)
+      } 
+      else {
+        passport.authenticate("local")(req, res, function() {
+          User.findOneAndUpdate({username: username}, {profilePic: "https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"}, err => { // Insert default pic to database on every new user
+            if (err){
+              console.log(err)
+            } 
+          })
+          res.redirect("http://localhost:3000/")
         })
-        res.redirect("http://localhost:3000/")
-      })
-    }
-  }) 
+      }
+    })
+  } else {
+    console.log("password does not match")
+  }
 })
 
 // Authenticate user with entered details from login form **

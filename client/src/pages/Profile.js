@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import "../App.css"
 import Axios from "axios"
+import { Button } from "@material-ui/core";
 
 let fileName = ""
 var i = 0
@@ -55,12 +56,12 @@ function Profile() {
         <p>current name: {name}</p>
         <label for="fname">Change Name:</label><br/>
         <input type="text" name="changeName" placeholder="Your new name.."/><br/>
-        <input type="submit" value="Submit"/>
+        <Button className="change-user-name-submit" variant="contained" color="primary" type="submit" value="Submit">Submit</Button>
       </form>
         <p>Upload your picture: </p>
         <input type="file" id="myFile" name="filename" onChange={fileChange} hidden></input>
         <label for="myFile"><img className="default-user-pic-profile" src={currentImg} alt="profile-picture"/></label><br/>
-        {currentImg ? <button value="Upload" onClick={uploadFile}>Click to upload</button> : null}
+        {currentImg ? <Button variant="contained" color="primary" value="Upload" onClick={uploadFile}>Click to upload</Button> : null}
     </div>
   )
 }

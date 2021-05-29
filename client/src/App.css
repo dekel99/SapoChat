@@ -43,6 +43,11 @@ hr {
   text-decoration: unset;
 }
 
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.change-user-name-submit.MuiButton-containedPrimary {
+  margin-top: 0.5rem;
+}
+
 .App {
   text-align: center;
 }
@@ -96,8 +101,8 @@ hr {
 
 
 
-.chat-input{
-}
+/* .chat-input{
+} */
 
 .ul-users{
   text-align: center;
