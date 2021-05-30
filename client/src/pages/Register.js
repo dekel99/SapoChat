@@ -9,25 +9,40 @@ function Register() {
     const [password, setPassword] = useState()
     const [confirm, setConfirm] = useState()
     const [registerErr, setRegisterErr] = useState(false)
+    const [shortErr, setShortErr] = useState(false)
+    const [UserExistErr, setUserExistErr] = useState(false)
 
+    // Send entered details to server after validtion ** 
     function sendRegister(e){
         e.preventDefault()
         const userDetails = {username: username, password: password }
-        console.log(userDetails)
 
-        if (password===confirm){
-            Axios({
-                method: "POST", 
-                url: "http://localhost:4000/register", 
-                withCredentials: true, 
-                data: userDetails}).then(res=> {
-                    if (res){
-                        window.location.replace("http://localhost:3000/")
-                    }
-                })
+        if (username.length>2){
+            if (password===confirm){
+                Axios({
+                    method: "POST", 
+                    url: "http://localhost:4000/register", 
+                    withCredentials: true, 
+                    data: userDetails}).then(res=> {
+                        if (res.data.name==="UserExistsError"){
+                            setUserExistErr(true)
+                            setRegisterErr(false)
+                            setShortErr(false)
+                        } else {
+                            window.location.replace("http://localhost:3000/")
+                        }
+                    }).catch(err => {console.log(err)})
+            } else {
+                setRegisterErr(true)
+                setShortErr(false)
+                setUserExistErr(false)
+            }
         } else {
-            setRegisterErr(true)
+            setShortErr(true)
+            setUserExistErr(false)
+            setRegisterErr(false)
         }
+
     }
 
     return (
@@ -40,7 +55,9 @@ function Register() {
                 <input type="password" id="passwordId" name="password" placeholder="Your password.." onChange={(e) => {setPassword(e.target.value)}}/><br/>
                 <label for="lname">Confirm Password</label><br/>
                 <input type="password" id="passwordIdConfirm" name="confirmPassword" placeholder="Your password.." onChange={(e) => {setConfirm(e.target.value)}}/><br/><br/>
-                {registerErr && <p className="register-err" >passwords does not match</p>} 
+                {UserExistErr && <p className="register-err">This username allready exist</p>}
+                {shortErr && <p className="register-err">Name must be at least 3 charecters</p>}
+                {registerErr && <p className="register-err" >Passwords does not match</p>} 
                 <Button variant="contained" color="primary" type="submit" value="Submit">Submit</Button>
             </form> 
         </div>

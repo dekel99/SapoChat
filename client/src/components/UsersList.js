@@ -13,7 +13,7 @@ function UsersList(props) {
                     {props.loggedUsers.map((user, index) => {
                         return(
                             <div className="user-n-img" key={index}>  
-                                <img className="default-user-pic" src={defaultUserPic} />
+                                <img className="default-user-pic" src={user.profilePic} />
                                 <li className="user-name"><h5>{user.name}</h5></li>
                             </div>
                         )

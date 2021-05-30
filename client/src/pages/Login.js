@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { Button } from "@material-ui/core";
 import Axios from "axios"
+import "../App.css"
 
 
 function Login() {
 
     const [username, setUsername] = useState()
     const [password, setPassword] = useState()
+    const [logErr, setLogErr] = useState(false)
     
     function sendLoginData(e){
         e.preventDefault()
@@ -21,7 +23,7 @@ function Login() {
                 if (res.data){
                     window.location.replace("http://localhost:3000/")   
                 } 
-            })
+            }).catch(err => {if(err){setLogErr(true)}})
     }
 
     
@@ -29,6 +31,7 @@ function Login() {
         <div className="register-block">
             <h3>Login</h3>
             <form onSubmit={sendLoginData}>
+                {logErr && <p className="register-err">Username or password is incorrect</p>}
                 <label for="fname">Userame:</label><br/>
                 <input type="text" name="username" placeholder="Your name.." onChange={(e)=>{setUsername(e.target.value)}}/><br/>
                 <label for="lname">Password</label><br/>

@@ -13,8 +13,6 @@ const findOrCreate = require("mongoose-findorcreate")
 const passportLocalMongoose = require("passport-local-mongoose")
 const cors = require ("cors")
 const multer = require ("multer")
-const path = require("path")
-const { response } = require("express")
 require("dotenv").config()
 
 
@@ -124,32 +122,29 @@ Message.find((err, messagesDB) =>{
 io.on('connection', (socket) => {
 
   // Runs when someone connect to chat **
-  socket.on("details", (name) => { 
-    // User.find({username: name}, (err, foundUser) => {
-    //   if (foundUser[0]){ 
-    //    const profilePic = foundUser[0].profilePic 
+  socket.on("details", async (name) => {
 
-    //    loggedUsers.push({name: name, id: socket.id, profilePic: profilePic})
-    //    newUser = new Message ({
-    //      name: "Alert",
-    //      message: name + " connected to chat!"
-    //    })
-    //   } else {
-    //     loggedUsers.push({name: name, id: socket.id})
-    //     return newUser = new Message ({
-    //       name: "Alert",
-    //       message: name + " connected to chat!"
-    //     })
-    //   }
-    // }) 
-    
-    loggedUsers.push({name: name, id: socket.id})
-    newUser = new Message ({
-      name: "Alert",
-      message: name + " connected to chat!"
-    })
+    // Finds user profile pic and name and send it to front **
+    User.find({username: name}, (err, foundUser) => {
+      if (foundUser[0]){ 
+        const profilePic = foundUser[0].profilePic 
 
-    saveNewMess()
+        loggedUsers.push({name: name, id: socket.id, profilePic: profilePic})
+        newUser = new Message ({
+          name: "Alert",
+          message: name + " connected to chat!"
+        })
+        saveNewMess()
+      } else {
+        loggedUsers.push({name: name, id: socket.id})
+        newUser = new Message ({
+          name: "Alert",
+          message: name + " connected to chat!"
+        })
+        saveNewMess()
+      }
+    }) 
+
     async function saveNewMess(){
       await newUser.save()
 
@@ -219,23 +214,22 @@ io.on('connection', (socket) => {
 // Saves new user in database and authenticate him **
 app.post('/register', function (req, res) {
   const { username, password } = req.body
-    User.register({username: username}, password, function(err, user){
-      if (err){
-        res.redirect("http://localhost:3000/register")
-        console.log(err)
-      } 
-      else {
-        passport.authenticate("local")(req, res, function() {
-          User.findOneAndUpdate({username: username}, {profilePic: "https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"}, err => { // Insert default pic to database on every new user
-            if (err){
-              console.log(err)
-            } else {
-              res.send(true)
-            }
-          })
+  User.register({username: username}, password, function(err, user){
+    if (err){
+      res.send(err)
+    } 
+    else {
+      passport.authenticate("local")(req, res, function() {
+        User.findOneAndUpdate({username: username}, {profilePic: "https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"}, err => { // Insert default pic to database on every new user
+          if (err){
+            console.log(err)
+          } else {
+            res.send(true)
+          }
         })
-      }
-    })
+      })
+    }
+  })
 })
 
 // Authenticate user with entered details from login form **
@@ -265,8 +259,10 @@ app.post("/change-name", function(req, res){
 
   if (req.isAuthenticated()){
     User.findOneAndUpdate({username: userName}, {username: newUserName}, err => {
-      if (!err){
-        res.redirect("http://localhost:3000/profile")
+      if (err){
+        res.send(err)
+      } else {
+        res.send(newUserName)
       }
     })
   } else {
