@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 const io = require("socket.io")(server, {cors: { origin: "*" }})
 const mongoose = require("mongoose")
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy
 const session = require("express-session")
 const passport = require("passport")
 const LocalStrategy = require("passport-local")
@@ -13,6 +14,7 @@ const findOrCreate = require("mongoose-findorcreate")
 const passportLocalMongoose = require("passport-local-mongoose")
 const cors = require ("cors")
 const multer = require ("multer")
+const fs = require('fs')
 require("dotenv").config()
 
 
@@ -23,7 +25,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 
 // Reformating **
-const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID } = process.env 
+const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env 
 
 // Multer storage config **
 const storage = multer.diskStorage({
@@ -61,10 +63,16 @@ mongoose.connect(MONGO_URL, {
   useCreateIndex: true
 })
 
+mongoose.set("useCreateIndex", true)
+
+
 userSchema = new mongoose.Schema ({
   email: String,
   password: String,
-  profilePic: String
+  googleId: String,
+  facebookId: String,
+  profilePic: String,
+  picPath: String
 })
 userSchema.plugin(passportLocalMongoose)
 userSchema.plugin(findOrCreate)
@@ -72,13 +80,13 @@ userSchema.plugin(findOrCreate)
 messageSchema = {
   name: String,
   message: String,
-  time: String
+  time: String,
 }
 
 const User = new mongoose.model("User", userSchema)
 const Message = new mongoose.model("Message", messageSchema)
 
-//Passport strategies **
+// Passport strategies **
 passport.use(new LocalStrategy(User.authenticate()))
 
 passport.serializeUser(function(user, done) {
@@ -91,14 +99,35 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-//google auth config **
+// Google auth config **
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:3000"
+  callbackURL: "http://localhost:4000/auth/google/sapochat",
+  userProfileUrl: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
 function(accessToken, refreshToken, profile, cb) {
   User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    if (!user.username){
+      User.findOneAndUpdate({googleId: profile.id}, {username: profile.name.givenName, profilePic: "https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"}, err => console.log(err))
+    }
+    return cb(err, user);
+  });
+}
+));
+
+// Facebook auth config **
+passport.use(new FacebookStrategy({
+  clientID: FACEBOOK_CLIENT_ID,
+  clientSecret: FACEBOOK_CLIENT_SECRET,
+  callbackURL: "http://localhost:4000/auth/facebook/sapochat"
+},
+function(accessToken, refreshToken, profile, cb) {
+  User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+    if (!user.username){
+      //console.log(profile.id)
+      User.findOneAndUpdate({facebookId: profile.id}, {username: profile.displayName, profilePic: "https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"}, err => console.log(err))
+    }
     return cb(err, user);
   });
 }
@@ -107,7 +136,7 @@ function(accessToken, refreshToken, profile, cb) {
 // --------------------------------------------SOCKET.IO HANDLE-----------------------------------------
 let loggedUsers = [] // Logged users list
 
-//Adds welcome message if DB is empty **
+// Adds welcome message if DB is empty **
 Message.find((err, messagesDB) =>{
   if (messagesDB.length==0){
     welcome = new Message({
@@ -275,12 +304,23 @@ app.post("/upload", upload.single("file"), async(req, res) => {
 
   if (req.isAuthenticated()){
     const {username} = req.user
-    await User.findOneAndUpdate({username: username}, {profilePic: "http://localhost:4000/public/uploads/" + req.file.filename}, err => { // Insert new img to database
+
+    // Delete old img on reaplace **
+    await User.find({username: username}, (err, foundUser) => {
+
+        try{
+          fs.unlinkSync(foundUser[0].picPath)
+        } catch(err){
+          console.log(err + "dellete error")
+        }
+    })
+
+    await User.findOneAndUpdate({username: username}, {profilePic: "http://localhost:4000/public/uploads/" + req.file.filename, picPath: "./public/uploads/" + req.file.filename}, err => { // Insert new img to database
       if (!err){
-        //res.redirect("http://localhost:3000/profile")
+
         res.send(req.file.filename)
       } else {
-          console.log(err)
+        console.log(err)
       }
     })
   }
@@ -324,9 +364,20 @@ app.get("/auth/google", passport.authenticate("google", {
 }));
 
 app.get("/auth/google/sapochat",
-passport.authenticate("google", { failureRedirect: "/login" }),
+passport.authenticate("google", { failureRedirect: "http://localhost:3000/login" }),
 function(req, res) {
   res.redirect('http://localhost:3000/'); // Successful authentication, redirect home
+});
+
+// Facebook auth **
+app.get("/auth/facebook",
+passport.authenticate("facebook", {scope: ['email']}));
+
+app.get("/auth/facebook/sapochat",
+passport.authenticate("facebook", { failureRedirect: "http://localhost:3000/login" }),
+function(req, res) {
+  // Successful authentication, redirect home.
+  res.redirect('http://localhost:3000/');
 });
 
 app.get("/public/uploads/:picId", function(req, res){

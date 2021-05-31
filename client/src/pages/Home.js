@@ -3,7 +3,6 @@ import Axios from "axios"
 import "../App.css"
 import ChatContanier from '../components/ChatContainer';
 import CreateName from "../components/CreateName";
-import {GoogleLogin} from "react-google-login"
 import { Button } from "@material-ui/core";
 
 function Home() {
@@ -18,12 +17,6 @@ function Home() {
       setmapTrigger(true)
     }
   
-    // Takes name from google user **
-    function googleRes(res){
-      console.log(res.Ft.yV)
-      setId(res.Ft.yV)
-      setmapTrigger(true)
-    }
 
     // Checks if user is auth and update his username if he is **
     Axios({
@@ -50,6 +43,10 @@ function Home() {
       // })
     }
 
+    function facebookAuth(){
+      window.location.replace("http://localhost:4000/auth/facebook")
+    }
+
     return (
         <div className="App">
             {id ? <ChatContanier mapTrigger={mapTrigger} name={id}/> : 
@@ -59,12 +56,7 @@ function Home() {
                     <CreateName submitName={submitName}/>
                     <hr/><p className="or" >optional</p><hr/>
                     <div className="google-auth">
-                      <button onClick={googleAuth}>Google auth test</button>
-                      <GoogleLogin
-                        clientId="1068259986849-lovbdof3dq79667qn70qjoufsu4cb96s.apps.googleusercontent.com"
-                        onSuccess={googleRes}
-                        onFailure={googleRes}
-                      /><br/>
+                      <button onClick={googleAuth}>Google auth test</button> <button onClick={facebookAuth}>Facebook auth test</button><br/><br/>      
                     </div>
                     <div className="local-auth-boutton">
                         <Button variant="contained" color="primary" type="submit"><a href="http://localhost:3000/login" className="login-button">Login</a></Button>

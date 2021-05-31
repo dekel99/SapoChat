@@ -42,7 +42,7 @@ function Profile() {
   function changeName(e){
     e.preventDefault()
 
-    if (newName.length<4){
+    if (newName.length<3){
       setShortErr(true)
       setUsedNameErr(false)
     } else {
