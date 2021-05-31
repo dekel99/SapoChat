@@ -396,4 +396,3 @@ if (port == null || port == "") {
 server.listen(port, function() {
   console.log(`server started running on port: ${port}`);
 });
-

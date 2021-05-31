@@ -26,7 +26,10 @@ function Login() {
             }).catch(err => {if(err){setLogErr(true)}})
     }
 
-    
+    function returnHome(){
+        window.location.replace("http://localhost:3000/")
+    }
+
     return (
         <div className="register-block">
             <h3>Login</h3>
@@ -38,6 +41,7 @@ function Login() {
                 <input type="password" name="password" placeholder="Your password.." onChange={(e)=>{setPassword(e.target.value)}} /><br/><br/>
                 <Button variant="contained" color="primary" type="submit" value="Submit">Log In</Button>
             </form> 
+            {/* <Button on variant="contained" color="secondary">Return To Home Page</Button> */}
         </div>
     )
 }

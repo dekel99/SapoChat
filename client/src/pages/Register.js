@@ -11,6 +11,7 @@ function Register() {
     const [registerErr, setRegisterErr] = useState(false)
     const [shortErr, setShortErr] = useState(false)
     const [UserExistErr, setUserExistErr] = useState(false)
+    const [minReqPasswordErr, setMinReqPasswordErr] = useState(false)
 
     // Send entered details to server after validtion ** 
     function sendRegister(e){
@@ -18,7 +19,13 @@ function Register() {
         const userDetails = {username: username, password: password }
 
         if (username.length>2){
-            if (password===confirm){
+            if (password.length < 6){
+                setRegisterErr(false)
+                setShortErr(false)
+                setUserExistErr(false)
+                setMinReqPasswordErr(true)
+            }
+            else if(password === confirm){
                 Axios({
                     method: "POST", 
                     url: "http://localhost:4000/register", 
@@ -36,13 +43,13 @@ function Register() {
                 setRegisterErr(true)
                 setShortErr(false)
                 setUserExistErr(false)
+                setMinReqPasswordErr(false)
             }
         } else {
             setShortErr(true)
             setUserExistErr(false)
             setRegisterErr(false)
         }
-
     }
 
     return (
@@ -58,6 +65,7 @@ function Register() {
                 {UserExistErr && <p className="register-err">This username allready exist</p>}
                 {shortErr && <p className="register-err">Name must be at least 3 charecters</p>}
                 {registerErr && <p className="register-err" >Passwords does not match</p>} 
+                {minReqPasswordErr && <p className="register-err" >Password needs to be at least 6 digits</p>}
                 <Button variant="contained" color="primary" type="submit" value="Submit">Submit</Button>
             </form> 
         </div>

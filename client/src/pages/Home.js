@@ -56,7 +56,7 @@ function Home() {
                     <CreateName submitName={submitName}/>
                     <hr/><p className="or" >optional</p><hr/>
                     <div className="google-auth">
-                      <button onClick={googleAuth}>Google auth test</button> <button onClick={facebookAuth}>Facebook auth test</button><br/><br/>      
+                      <button className="loginBtn loginBtn--google" onClick={googleAuth}>Log In With Google</button> <button className="loginBtn loginBtn--facebook" onClick={facebookAuth}>Log In With Facebook</button><br/><br/>      
                     </div>
                     <div className="local-auth-boutton">
                         <Button variant="contained" color="primary" type="submit"><a href="http://localhost:3000/login" className="login-button">Login</a></Button>
