@@ -1,0 +1,8 @@
+.register-block{
+    text-align: center;
+}
+
+.register-err{
+    color: rgb(194, 8, 8);
+    margin-bottom: 10px;
+  }

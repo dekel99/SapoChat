@@ -1,0 +1,22 @@
+.chat-box{
+    margin: auto;
+    width: 750px;
+    height: 900px;
+    background: #ced1da;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+    bottom: 0em;
+    padding-bottom: 3rem;
+  }
+
+@media (max-width: 800px) {
+  .chat-box{
+    margin-top: 10px;
+    width: 80%;
+    height: 550px;
+    bottom: 200px;
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import "../App.css"
+import "../styles/chatBubble.css"
 
 function ChatBubble(props) {
 
@@ -8,7 +8,7 @@ function ChatBubble(props) {
             {/* <img src={props.loggedUsers.profilePic} alt="Avatar"/> */}
             <p className="sender-name">{props.name}:</p>
             <p>{props.message}</p>
-            <span class="time-right">{props.time}</span>
+            <span className="time-right">{props.time}</span>
         </div>
     )
 }

@@ -1,0 +1,20 @@
+.register-block{
+    text-align: center;
+}
+
+.register-err{
+  color: rgb(194, 8, 8);
+  margin-bottom: 10px;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.change-user-name-submit.MuiButton-containedPrimary {
+  margin-top: 0.5rem;
+}
+
+.default-user-pic-profile{
+    display: inline-block;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5px;
+  }
+  

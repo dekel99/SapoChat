@@ -1,0 +1,27 @@
+a{
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  color: white;
+}
+
+#register-btn{
+  color: rgb(20, 20, 167);
+}
+
+.home-login{
+  margin: 10%;
+}
+  
+.guest-title{
+  font-family: 'Alef', sans-serif;
+  color: #eeeeee;
+}
+
+.title-guest-input{
+  margin-bottom: -1rem;
+}
+
+

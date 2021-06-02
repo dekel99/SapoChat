@@ -1,0 +1,19 @@
+@media (max-width: 800px) {
+  .chat-input{
+    position: absolute;
+    bottom: 50px;
+    left: 3%;
+    background-color: azure;
+    padding: 15px;
+    padding-top: 5px;
+    border-radius: 5px;
+    width: 88%;
+    margin: auto;
+  }
+
+  .send-button{
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+  }
+}

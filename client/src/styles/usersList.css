@@ -1,0 +1,39 @@
+.logged-users-container{
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+    position: absolute;
+    background-color: azure;
+    height: auto;
+    width: auto;
+    border-radius: 5px;
+}
+
+.ul-users{
+  text-align: center;
+  padding: 5px;
+  margin-left: 10px;
+}
+
+.user-n-img{
+  margin: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+}
+
+.default-user-pic{
+  display: inline-block;
+  height: 35px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  margin-top: 22px;
+}
+
+.user-name {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  padding-left: 5px;
+}
+  

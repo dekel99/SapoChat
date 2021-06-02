@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import "../App.css"
+import "../styles/App.css"
+import "../styles/profile.css"
 import Axios from "axios"
 import { Button } from "@material-ui/core";
 
@@ -90,7 +91,7 @@ function Profile() {
       </form>
         <p>Upload your picture: </p>
         <input type="file" id="myFile" name="filename" onChange={fileChange} hidden></input>
-        <label for="myFile"><img className="default-user-pic-profile" src={currentImg} alt="profile-picture"/></label><br/>
+        <label for="myFile"><img className="default-user-pic-profile" src={currentImg} alt="profile-pic"/></label><br/>
         {currentImg ? <Button variant="contained" color="primary" value="Upload" onClick={uploadFile}>Click to upload</Button> : null}
     </div>
   )

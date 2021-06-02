@@ -1,0 +1,76 @@
+h3 {
+  color: white;
+  font-size: 1.25rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+
+hr {
+  display: inline-flex;
+  width: 22%;
+  margin: 3px;
+  border: 0;
+  height: 0;
+  border-top: 1px solid black;
+}
+
+body,html{
+  height: 100%;
+  margin: 0;
+  background: #7F7FD5;
+     background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+      background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.change-user-name-submit.MuiButton-containedPrimary {
+  margin-top: 0.5rem;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+
+.default-user-pic{
+  display: inline-block;
+  height: 35px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  margin-top: 22px;
+}
+
+.default-user-pic-profile{
+  display: inline-block;
+  height: 50px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+
+
+
+

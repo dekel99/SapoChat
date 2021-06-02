@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import "../App.css"
+import "../styles/App.css"
+import "../styles/register.css"
 import { Button } from "@material-ui/core";
 import Axios from "axios"
 

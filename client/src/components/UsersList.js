@@ -1,7 +1,7 @@
 import React from 'react'
-import "../App.css"
+import "../styles/usersList.css"
 
-const defaultUserPic="https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"
+const defPic="https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"
 
 function UsersList(props) {
 
@@ -13,7 +13,7 @@ function UsersList(props) {
                     {props.loggedUsers.map((user, index) => {
                         return(
                             <div className="user-n-img" key={index}>  
-                                <img className="default-user-pic" src={user.profilePic} />
+                                <img className="default-user-pic" src={user.profilePic ? user.profilePic : defPic} alt="profile-pic"/>
                                 <li className="user-name"><h5>{user.name}</h5></li>
                             </div>
                         )

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ChatInput from "./ChatInput"
-import '../style.css';
+import '../styles/chatContainer.css';
 import ChatBubble from './ChatBubble';
 import io from "socket.io-client"
 import UsersList from './UsersList';

@@ -307,12 +307,11 @@ app.post("/upload", upload.single("file"), async(req, res) => {
 
     // Delete old img on reaplace **
     await User.find({username: username}, (err, foundUser) => {
-
-        try{
-          fs.unlinkSync(foundUser[0].picPath)
-        } catch(err){
-          console.log(err + "dellete error")
-        }
+      try{
+        fs.unlinkSync(foundUser[0].picPath)
+      } catch(err){
+        console.log(err + "dellete error")
+      }
     })
 
     await User.findOneAndUpdate({username: username}, {profilePic: "http://localhost:4000/public/uploads/" + req.file.filename, picPath: "./public/uploads/" + req.file.filename}, err => { // Insert new img to database

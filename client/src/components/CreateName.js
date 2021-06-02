@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField';
 import { Button } from "@material-ui/core";
-import "../App.css"
+import "../styles/createName.css"
 
 
 function CreateName(props) {
@@ -29,9 +29,7 @@ function CreateName(props) {
                         shrink: true,
                     }}
                 />
-                <Button variant="contained" color="primary" type="submit">
-                Enter Chat
-                </Button>
+                <Button variant="contained" color="primary" type="submit">Enter Chat</Button>
             </form>
         </div>
     )
