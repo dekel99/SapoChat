@@ -11,12 +11,20 @@ function Home() {
 
     const [id, setId] = useState()
     const [mapTrigger, setmapTrigger] = useState(false)
+    const [nameExistErr, setNameExistErr] = useState(false)
 
     // Runs when guest enters his name **
     function submitName(name){
-      setId(name)
-      localStorage.setItem("nameKey", name)  
-      setmapTrigger(true)
+      Axios.get("http://localhost:4000/check-user-exist/" + name).then(res => {
+        console.log(res.data)
+        if (res.data){
+          setNameExistErr(true)
+        } else {
+          setId(name)
+          localStorage.setItem("nameKey", name)  
+          setmapTrigger(true)
+        }
+      })
     }
 
     // Checks if user is auth and update his username if he is **
@@ -38,6 +46,7 @@ function Home() {
           <div className="title-guest-input">
             <h3 className="guest-title" >Enter as a guest</h3>
             <CreateName submitName={submitName}/>
+            {nameExistErr && <p className="register-err">Name allready exists</p>}
             <LogCard/>
           </div>
         </div>}

@@ -54,7 +54,7 @@ export default function ChatContanier(props) {
   // Runs when somone quit **
   socket.on("userLeft", newUserList => {
       setloggedUsers(newUserList)
-    })
+  })
 
   // Forward message to server **
   function sendMessToServer(message){
@@ -77,8 +77,8 @@ export default function ChatContanier(props) {
         {chatList.map((message, index) => { 
           return (
           <ChatBubble key={index} message={message.message} name={message.name} time={message.time} />
-        )}
-        )}
+          )
+        })}
           <ChatInput handleSendText={handleSendText} sendMessToServer={sendMessToServer}/>
       </div>
     </div>

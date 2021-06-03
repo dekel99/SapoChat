@@ -3,8 +3,10 @@ import "../styles/chatBubble.css"
 
 function ChatBubble(props) {
 
+    const localStorageName = localStorage.getItem("nameKey")
+
     return (
-        <div className="container">
+        <div className={props.name===localStorageName ? "container self-container" : "container"}>
             {/* <img src={props.loggedUsers.profilePic} alt="Avatar"/> */}
             <p className="sender-name">{props.name}:</p>
             <p>{props.message}</p>

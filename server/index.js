@@ -384,6 +384,29 @@ app.get("/public/uploads/:picId", function(req, res){
   res.sendFile(__dirname + "/public/uploads/" + picId)
 })
 
+app.get("/check-user-exist/:username", function(req, res){
+  const enteredName = req.params.username
+  let userLogged = false
+
+  User.find({username: enteredName}, (err, foundUser) => {
+
+    for (i=0; i< loggedUsers.length; i++){
+      if(loggedUsers[i].name===enteredName){
+        userLogged = true
+        break
+      } else {
+        userLogged = false
+      }
+    }
+
+    if (foundUser[0] || userLogged){
+      res.send(true)
+    } else {
+      res.send(false)
+    }
+  })
+})
+
 // --------------------------------------------END ROUTES-----------------------------------------
 
 // Port Config **

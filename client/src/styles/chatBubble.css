@@ -12,6 +12,10 @@
   margin: 10px 0;
 }
 
+.self-container {
+  background-color: rgba(100, 100, 226, 0.404);
+}
+
 .time-right {
   float: right;
   color: #aaa;

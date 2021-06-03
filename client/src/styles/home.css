@@ -24,4 +24,7 @@ a:hover {
   margin-bottom: -1rem;
 }
 
-
+.register-err{
+  color: rgb(194, 8, 8);
+  margin-bottom: 10px;
+}
