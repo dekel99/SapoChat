@@ -11,3 +11,20 @@
     width: auto;
     border-radius: 5px;
 }
+
+@media (min-width: 800px) {
+    .users-list-btn{
+        display: none;
+    }
+}
+
+.users-number {
+    position: absolute;
+    top: 16px;
+    right: 5px;
+    width: 13px;
+    height: 13px;
+    font-size: 10px;
+    background-color: brown;
+    border-radius: 50px;
+}

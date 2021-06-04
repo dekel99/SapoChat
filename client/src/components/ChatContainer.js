@@ -47,7 +47,7 @@ export default function ChatContanier(props) {
   // Callback from server when somone entered chat **
   socket.on("details", (messagesDB, onlineUsers) => {
     setloggedUsers(onlineUsers)
-    localStorage.setItem("loggedUsers", JSON.stringify(onlineUsers))
+    props.catchLoggedUsers(onlineUsers)
     setChatlist(messagesDB)
     scrollToBot()
   })

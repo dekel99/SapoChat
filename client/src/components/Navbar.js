@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from "axios"
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,6 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import UsersList from './UsersList';
+import GroupIcon from '@material-ui/icons/Group';
 import "../styles/navbar.css"
 
 
@@ -66,7 +67,6 @@ export default function Navbar(props) {
     })  
   }
 
-  const loggedUsers = JSON.parse(localStorage.getItem("loggedUsers"))
 
   return (
     <div className={classes.root}>
@@ -74,8 +74,12 @@ export default function Navbar(props) {
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon onClick={() => {loggedUsersBox ? setLoggedUsersBox(false) : setLoggedUsersBox(true)}}/>
-            
+
+          <div className="users-list-btn">
+            <GroupIcon onClick={() => {loggedUsersBox ? setLoggedUsersBox(false) : setLoggedUsersBox(true)}}/> 
+            {props.loggedUsers && <p className="users-number">{props.loggedUsers.length}</p>} {/*Number of logged users */}
+          </div>
+
           </IconButton>
           
           <Typography variant="h6" className={classes.title}>
@@ -91,7 +95,7 @@ export default function Navbar(props) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+              <AccountCircle />
               </IconButton>
               {isAuth && <Menu
                 id="menu-appbar"
@@ -116,7 +120,7 @@ export default function Navbar(props) {
           )}
         </Toolbar>
       </AppBar>
-      {loggedUsersBox && <div className="users-list"><UsersList loggedUsers={loggedUsers}/></div>}
+      {loggedUsersBox && <div className="users-list"><UsersList loggedUsers={props.loggedUsers}/></div>}
     </div>
   );
 }

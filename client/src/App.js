@@ -13,6 +13,7 @@ import Axios from "axios";
 function App() {
 
   const [isAuth, setIsAuth] = useState(false) // Global Auth state for client side
+  const [loggedUsers, setLoggedUsers] = useState()
 
   // Checks if User is auth **
   Axios({
@@ -25,16 +26,20 @@ function App() {
     }
   })
 
+  function catchLoggedUsers(onlineUsers){
+    setLoggedUsers(onlineUsers)
+  }
+
   return (
     <Router>
       <main>
         <div className="App">
-          <Navbar isAuth={isAuth}/>
+          <Navbar loggedUsers={loggedUsers} isAuth={isAuth}/>
         </div>
           <Switch> 
 
             <Route path="/" exact> 
-              <Home/>
+              <Home catchLoggedUsers={catchLoggedUsers} />
             </Route>
 
             <Route path="/Register" exact> 

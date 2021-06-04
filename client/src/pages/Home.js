@@ -7,7 +7,7 @@ import CreateName from "../components/CreateName";
 import LogCard from "../components/LogCard";
 
 
-function Home() {
+function Home(props) {
 
     const [id, setId] = useState()
     const [mapTrigger, setmapTrigger] = useState(false)
@@ -28,20 +28,20 @@ function Home() {
 
     // Checks if user is auth and update his username if he is **
     Axios({
-        method:"GET",
-        withCredentials: true,
-        url:"http://localhost:4000/profile"
-      }).then(res => {
-        if (res){
-          setId(res.data[0].username)
-          localStorage.setItem("nameKey", res.data[0].username)  
-          setmapTrigger(true)
-        }
-      })
+      method:"GET",
+      withCredentials: true,
+      url:"http://localhost:4000/profile"
+    }).then(res => {
+      if (res){
+        setId(res.data[0].username)
+        localStorage.setItem("nameKey", res.data[0].username)  
+        setmapTrigger(true)
+      }
+    })
 
     return (
       <div className="App">
-        {id ? <ChatContanier mapTrigger={mapTrigger} name={id}/> : 
+        {id ? <ChatContanier catchLoggedUsers={props.catchLoggedUsers} mapTrigger={mapTrigger} name={id}/> : 
         <div className="home-login">
           <div className="title-guest-input">
             <h3 className="guest-title" >Enter as a guest</h3>
