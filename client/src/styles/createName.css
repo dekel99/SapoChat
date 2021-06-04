@@ -1,11 +1,10 @@
 .enter-name-form{
-    width: 30%;
-    text-align: center;
-    margin: auto;
-    margin-top: 5%;
-    margin-bottom: 2rem;
+  width: 30%;
+  text-align: center;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 2rem;
 }
-
 
 @media (max-width: 800px) {
   .enter-name-form{

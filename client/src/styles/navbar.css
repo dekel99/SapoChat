@@ -1,0 +1,13 @@
+.users-list{
+    width: 50px;
+    position: absolute;
+    left: 10px;
+    top: 50px;
+    text-align: center;
+    margin: 5px;
+    padding: 10px;
+    background-color: azure;
+    height: auto;
+    width: auto;
+    border-radius: 5px;
+}

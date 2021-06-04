@@ -6,7 +6,7 @@ const defPic="https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.
 function UsersList(props) {
 
     return (
-        <div className="logged-users-container">
+        <div>
             <h4>Logged users:</h4>
             <div className="div-users">
                 <ul className="ul-users">

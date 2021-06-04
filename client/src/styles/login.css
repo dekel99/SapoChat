@@ -1,5 +1,28 @@
-.register-block{
+
+
+.password-input,.username-input{
+    width: 30%;
+    max-width: 350px;
     text-align: center;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+@media (max-width: 800px) {
+  .password-input,.username-input{
+    width: 70%;
+    text-align: center;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.login-block{
+    text-align: center;
+    margin: 10%;
 }
 
 .register-err{

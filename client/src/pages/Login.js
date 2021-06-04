@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import Axios from "axios"
 import "../styles/login.css"
+import "../styles/App.css"
 
 
 function Login() {
@@ -23,18 +24,51 @@ function Login() {
                 if (res.data){
                     window.location.replace("http://localhost:3000/")   
                 } 
-            }).catch(err => {if(err){setLogErr(true)}})
+        }).catch(err => {if(err){setLogErr(true)}})
     }
 
     return (
-        <div className="register-block">
+        <div className="login-block">
             <h3>Login</h3>
             <form onSubmit={sendLoginData}>
                 {logErr && <p className="register-err">Username or password is incorrect</p>}
-                <label for="fname">Userame:</label><br/>
-                <input type="text" name="username" placeholder="Your name.." onChange={(e)=>{setUsername(e.target.value)}}/><br/>
-                <label for="lname">Password</label><br/>
-                <input type="password" name="password" placeholder="Your password.." onChange={(e)=>{setPassword(e.target.value)}} /><br/><br/>
+
+                <div className="username-input">
+                    <TextField
+                        onChange={(e)=>{setUsername(e.target.value)}}
+                        autoComplete="off"
+                        name="username"
+                        id="standard-half-width"
+                        label="Username:"
+                        style={{ margin: 5 }}
+                        //value={text}
+                        placeholder="Enter your username.."
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </div>
+
+                <div className="password-input">
+                    <TextField
+                        type="password"
+                        onChange={(e)=>{setPassword(e.target.value)}}
+                        name="password"
+                        id="standard-half-width"
+                        label="Password:"
+                        style={{ margin: 5 }}
+                        //value={text}
+                        placeholder="Enter your password.."
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </div>
+
                 <Button variant="contained" color="primary" type="submit" value="Submit">Log In</Button>
             </form> 
         </div>

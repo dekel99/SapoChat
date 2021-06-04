@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "../styles/App.css"
 import "../styles/register.css"
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import Axios from "axios"
 
 function Register() {
@@ -36,6 +36,7 @@ function Register() {
                             setUserExistErr(true)
                             setRegisterErr(false)
                             setShortErr(false)
+                            setMinReqPasswordErr(false)
                         } else {
                             window.location.replace("http://localhost:3000/")
                         }
@@ -50,6 +51,7 @@ function Register() {
             setShortErr(true)
             setUserExistErr(false)
             setRegisterErr(false)
+            setMinReqPasswordErr(false)
         }
     }
 
@@ -57,12 +59,61 @@ function Register() {
         <div className="register-block">
             <h3>Register</h3>
             <form onSubmit={sendRegister}>
-                <label for="fname">Username:</label><br/>
-                <input type="text" id="nameId" name="username" placeholder="Your name.." onChange={(e) => {setUsername(e.target.value)}}/><br/>
-                <label for="lname">Password</label><br/>
-                <input type="password" id="passwordId" name="password" placeholder="Your password.." onChange={(e) => {setPassword(e.target.value)}}/><br/>
-                <label for="lname">Confirm Password</label><br/>
-                <input type="password" id="passwordIdConfirm" name="confirmPassword" placeholder="Your password.." onChange={(e) => {setConfirm(e.target.value)}}/><br/><br/>
+
+                <div className="username-input">
+                    <TextField
+                        onChange={(e) => {setUsername(e.target.value)}}
+                        autoComplete="off"
+                        name="username"
+                        id="standard-half-width"
+                        label="Username:"
+                        style={{ margin: 5 }}
+                        //value={text}
+                        placeholder="Your name.."
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </div>
+
+                <div className="password-input">
+                    <TextField
+                        type="password"
+                        onChange={(e) => {setPassword(e.target.value)}}
+                        name="password"
+                        id="standard-half-width"
+                        label="Password:"
+                        style={{ margin: 5 }}
+                        //value={text}
+                        placeholder="Your password.."
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </div>
+
+                <div className="password-input">
+                    <TextField
+                        type="password"
+                        onChange={(e) => {setConfirm(e.target.value)}}
+                        name="confirmPassword"
+                        id="standard-half-width"
+                        label="Confrim password:"
+                        style={{ margin: 5 }}
+                        //value={text}
+                        placeholder="Confirm your password.."
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </div>
+
                 {UserExistErr && <p className="register-err">This username allready exist</p>}
                 {shortErr && <p className="register-err">Name must be at least 3 charecters</p>}
                 {registerErr && <p className="register-err" >Passwords does not match</p>} 

@@ -16,7 +16,6 @@ function Home() {
     // Runs when guest enters his name **
     function submitName(name){
       Axios.get("http://localhost:4000/check-user-exist/" + name).then(res => {
-        console.log(res.data)
         if (res.data){
           setNameExistErr(true)
         } else {
@@ -35,6 +34,7 @@ function Home() {
       }).then(res => {
         if (res){
           setId(res.data[0].username)
+          localStorage.setItem("nameKey", res.data[0].username)  
           setmapTrigger(true)
         }
       })

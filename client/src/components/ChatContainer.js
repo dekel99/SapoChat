@@ -47,6 +47,7 @@ export default function ChatContanier(props) {
   // Callback from server when somone entered chat **
   socket.on("details", (messagesDB, onlineUsers) => {
     setloggedUsers(onlineUsers)
+    localStorage.setItem("loggedUsers", JSON.stringify(onlineUsers))
     setChatlist(messagesDB)
     scrollToBot()
   })
@@ -72,7 +73,10 @@ export default function ChatContanier(props) {
 
   return (
     <div>
-      <UsersList loggedUsers={loggedUsers}/>
+      <div className="logged-users-container">
+        <UsersList loggedUsers={loggedUsers}/>
+      </div>
+
       <div className="chat-box" id="chat-id">
         {chatList.map((message, index) => { 
           return (

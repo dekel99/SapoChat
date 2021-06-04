@@ -1,7 +1,18 @@
+.logged-users-container{
+  text-align: center;
+  margin: 5px;
+  padding: 10px;
+  position: absolute;
+  background-color: azure;
+  height: auto;
+  width: auto;
+  border-radius: 5px;
+}
+
 .chat-box{
     margin: auto;
     width: 750px;
-    height: 900px;
+    height: calc(100vh - 220px);
     background: #ced1da;
     border-radius: 5px;
     text-align: center;
@@ -9,14 +20,13 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     overflow: auto;
     bottom: 0em;
-    padding-bottom: 3rem;
+    padding-bottom: 1rem;
   }
 
 @media (max-width: 800px) {
   .chat-box{
-    margin-top: 10px;
-    width: 80%;
-    height: 550px;
-    bottom: 200px;
+    height: calc(100vh - 130px);
+    /* margin-top: 10px; */
+    width: 100%;
   }
 }
