@@ -16,7 +16,8 @@
   border-radius: 50%;
   position: absolute;
   left: 0px;
-  margin-top: 22px;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
 .user-name {
