@@ -27,7 +27,7 @@
   padding-left: 5px;
 }
 
-@media (max-width: 800px){
+@media (max-width: 1000px){
   .logged-users-container {
       display: none
   }
