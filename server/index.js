@@ -140,7 +140,7 @@ let loggedUsers = [] // Logged users list
 Message.find((err, messagesDB) =>{
   if (messagesDB.length==0){
     welcome = new Message({
-      name:"Developer",
+      name:"Alert",
       message:"Hi welcome to sapochat v1.0 By Dekel & Nadav"
     })
     welcome.save()

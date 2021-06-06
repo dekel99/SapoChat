@@ -10,6 +10,7 @@
     height: auto;
     width: auto;
     border-radius: 5px;
+    z-index: 1;
 }
 
 @media (min-width: 1000px) {

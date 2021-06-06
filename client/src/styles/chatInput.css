@@ -1,13 +1,18 @@
+.chat-input{
+  position: relative;
+  bottom: 0px;
+}
+
 @media (max-width: 800px) {
   .chat-input{
     position: absolute;
     bottom: 0px;
     left: 0px;
-    background-color: azure;
+    background-color: #ced1da;
     padding: 15px;
-    padding-top: 5px;
+    padding-top: 5px; 
     width: calc(100% - 20px);
-    width: 100%;
+    width: 100vw;
     margin: auto;
     z-index: 100;
   }

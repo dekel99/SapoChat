@@ -31,7 +31,7 @@ const ChatInput = (props) => {
           onChange={handleTextInput}
           id="standard-full-width"
           label="Chat text"
-          style={{ margin: 8, width: 450 }}
+          style={{ margin: 8 }}
           value={text}
           fullWidth
           placeholder="Write here.."
