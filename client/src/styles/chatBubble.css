@@ -60,7 +60,7 @@
   position: relative;
   background-color: #c6c3eeb9;
   border: 2px solid #dedede;
-  border-radius: 10px;
+  border-radius: 22px;
   padding: 10px;
   width: 90vw;
   max-width: 700px;
@@ -70,4 +70,5 @@
 
 p {
   margin-bottom: 0.2rem;
+  word-wrap: break-word;
 }

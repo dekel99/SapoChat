@@ -14,12 +14,15 @@ export default function ChatContanier(props) {
 
   const [chatList, setChatlist] = useState([])
   const [loggedUsers, setloggedUsers] = useState([])
+  const userNamesArr = []
+  const userIdArr = []
 
   function getTime(){
-    const time = new Date().toLocaleTimeString(navigator.language, {
+    const time = new Date().toLocaleTimeString("en-GB", {
       hour: "2-digit",
       minute: "2-digit"
     });
+    console.log(time)
     return time
   }
 
@@ -46,10 +49,29 @@ export default function ChatContanier(props) {
 
   // Callback from server when somone entered chat **
   socket.on("details", (messagesDB, onlineUsers) => {
-    setloggedUsers(onlineUsers)
-    props.catchLoggedUsers(onlineUsers)
-    setChatlist(messagesDB)
-    scrollToBot()
+
+    // console.log(Object.values(onlineUsers[0])[0])
+    const newUserName = Object.values(onlineUsers[0])[0]
+    const newUserId = Object.values(onlineUsers[0])[1]
+    userIdArr.push(newUserId)
+    userNamesArr.push(newUserName)
+    console.log(userNamesArr)
+    console.log(userIdArr)
+
+    function checkIfArrayIsUnique(myArray) {
+      return myArray.length === new Set(myArray).size;
+    }
+
+    if (checkIfArrayIsUnique(userNamesArr)) { 
+      setloggedUsers(onlineUsers)
+      props.catchLoggedUsers(onlineUsers)
+      setChatlist(messagesDB)
+      scrollToBot()
+    } else {
+        if (!checkIfArrayIsUnique(userIdArr)) { 
+          window.location.replace("http://localhost:3000/login")
+        }
+    }
   })
 
   // Runs when somone quit **
