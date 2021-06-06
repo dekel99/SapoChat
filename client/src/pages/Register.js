@@ -118,7 +118,7 @@ function Register() {
                 {shortErr && <p className="register-err">Name must be at least 3 charecters</p>}
                 {registerErr && <p className="register-err" >Passwords does not match</p>} 
                 {minReqPasswordErr && <p className="register-err" >Password needs to be at least 6 digits</p>}
-                <Button variant="contained" color="primary" type="submit" value="Submit">Submit</Button>
+                <Button onKeyDown={e => {if (e.key === "Enter") {sendRegister()}}} variant="contained" color="primary" type="submit" value="Submit">Submit</Button>
             </form> 
         </div>
     )

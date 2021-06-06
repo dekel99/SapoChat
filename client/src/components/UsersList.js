@@ -17,7 +17,7 @@ function UsersList(props) {
                                 <li className="user-name"><h5>{user.name}</h5></li>
                             </div>
                         )
-                    }).catch(err => console.log(err))
+                    })
                     }
                 </ul>
             </div>

@@ -7,13 +7,22 @@
 .container {
   border: 2px solid #dedede;
   background-color: #f1f1f1;
-  border-radius: 5px;
+  border-radius: 35px;
   padding: 10px;
+  width: 28vh;
   margin: 10px 0;
+  margin-right: -60%;
+  margin-left: 10%;
 }
 
 .self-container {
-  background-color: rgba(100, 100, 226, 0.404);
+  background-color: #c8c2bc;
+  border: 2px solid #dedede;
+  border-radius: 35px;
+  padding: 10px;
+  width: 28vh;
+  margin: 10px 0;
+  margin-left: 60%;
 }
 
 .time-right {

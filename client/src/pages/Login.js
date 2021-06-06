@@ -69,7 +69,7 @@ function Login() {
                     />
                 </div>
 
-                <Button variant="contained" color="primary" type="submit" value="Submit">Log In</Button>
+                <Button onKeyDown={e => {if (e.key === "Enter") {sendLoginData()}}} variant="contained" color="primary" type="submit" value="Submit">Log In</Button>
             </form> 
         </div>
     )

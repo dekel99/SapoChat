@@ -31,7 +31,7 @@ const ChatInput = (props) => {
           onChange={handleTextInput}
           id="standard-full-width"
           label="Chat text"
-          style={{ margin: 8 }}
+          style={{ margin: 8, width: 450 }}
           value={text}
           fullWidth
           placeholder="Write here.."
@@ -42,7 +42,7 @@ const ChatInput = (props) => {
           }}
         />
         <div className="send-button">
-          <Button id="send-massage-button" variant="contained" color="primary" onClick={submitText}>
+          <Button id="send-massage-button" variant="contained" color="primary" style={{ borderRadius: "80px", }} onClick={submitText}>
             <SendIcon/>
           </Button>
         </div>
