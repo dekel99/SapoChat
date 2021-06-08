@@ -1,25 +1,44 @@
-.chat-input{
+.chat-input-form{
   position: relative;
   bottom: 0px;
 }
 
 @media (max-width: 800px) {
-  .chat-input{
+  .chat-input-form{
     position: absolute;
     bottom: 0px;
     left: 0px;
     background-color: #ced1da;
     padding: 15px;
     padding-top: 5px; 
-    width: calc(100% - 20px);
     width: 100vw;
     margin: auto;
     z-index: 100;
   }
+
+.chat-input {
+  width: calc(100vw - 150px);
+}
 
   .send-button{
     position: absolute;
     right: 10px;
     bottom: 20px;
   }
+}
+
+.emoji-mart-preview {
+  display: none;
+}
+
+#send-massage-button {
+  margin-right: 1rem;
+  border-radius: 80px;
+}
+
+.emoji-picker {
+  z-index: 100;
+  position: absolute;
+  bottom: 100px;
+  right: 0;
 }

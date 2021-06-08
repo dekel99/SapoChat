@@ -17,7 +17,7 @@
 .chat-box{
     margin: auto;
     width: 750px;
-    height: calc(100vh - 220px);
+    height: calc(100vh - 130px);
     background: #ced1da;
     border-radius: 5px;
     text-align: center;

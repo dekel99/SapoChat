@@ -22,7 +22,6 @@ export default function ChatContanier(props) {
       hour: "2-digit",
       minute: "2-digit"
     });
-    console.log(time)
     return time
   }
 
@@ -39,6 +38,7 @@ export default function ChatContanier(props) {
     scrollToBot()
   }
 
+
   // --------------------------------------------COMUNICATION WITH SERVER-----------------------------------------
 
   // Map trigger changes to true when client enters chat **
@@ -50,13 +50,11 @@ export default function ChatContanier(props) {
   // Callback from server when somone entered chat **
   socket.on("details", (messagesDB, onlineUsers) => {
 
-    // console.log(Object.values(onlineUsers[0])[0])
+    document.getElementById("standard-full-width").focus();
     const newUserName = Object.values(onlineUsers[0])[0]
     const newUserId = Object.values(onlineUsers[0])[1]
     userIdArr.push(newUserId)
     userNamesArr.push(newUserName)
-    console.log(userNamesArr)
-    console.log(userIdArr)
 
     function checkIfArrayIsUnique(myArray) {
       return myArray.length === new Set(myArray).size;
