@@ -50,6 +50,7 @@ export default function ChatContanier(props) {
   // Callback from server when somone entered chat **
   socket.on("details", (messagesDB, onlineUsers) => {
 
+    // Disconnects user if try to enter from 2 tabs **
     document.getElementById("standard-full-width").focus();
     const newUserName = Object.values(onlineUsers[0])[0]
     const newUserId = Object.values(onlineUsers[0])[1]
@@ -65,10 +66,8 @@ export default function ChatContanier(props) {
       props.catchLoggedUsers(onlineUsers)
       setChatlist(messagesDB)
       scrollToBot()
-    } else {
-        if (!checkIfArrayIsUnique(userIdArr)) { 
-          window.location.replace("http://localhost:3000/login")
-        }
+    } else if (!checkIfArrayIsUnique(userIdArr)) { 
+      window.location.replace("http://localhost:3000/login")
     }
   })
 
