@@ -1,5 +1,6 @@
 .register-block{
     text-align: center;
+    margin-top: 3vh;
 }
 
 .register-err{
@@ -7,8 +8,31 @@
   margin-bottom: 10px;
 }
 
+.new-name-input{
+    width: 30%;
+    max-width: 350px;
+    min-width: 200px;
+    text-align: center;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 .MuiButtonBase-root.MuiButton-root.MuiButton-contained.change-user-name-submit.MuiButton-containedPrimary {
   margin-top: 0.5rem;
+}
+.avatar-preview div{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.img-text-container{
+    text-align: center;
+    max-width: 960px;
+    margin: auto;
 }
 
 .default-user-pic-profile{
@@ -16,5 +40,48 @@
     height: 50px;
     border-radius: 50%;
     margin: 5px;
-  }
-  
+}
+
+.avatar-upload {
+    position: relative;
+    max-width: 205px;
+    margin: 50px auto;
+}  
+
+.avatar-edit {
+      position: absolute;
+      right: 12px;
+      z-index: 1;
+      top: 10px;
+}   
+
+.img-text-container input {
+    display: none;
+}
+
+.avatar-edit label {
+       display: inline-block;
+       width: 34px;
+       height: 34px;
+       margin-bottom: 0;
+       border-radius: 100%;
+       background: #FFFFFF;
+       border: 1px solid transparent;
+       box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+       cursor: pointer;
+       font-weight: normal;
+       transition: all .2s ease-in-out;
+   }                
+
+            
+.avatar-preview {
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}    
+       
+
+

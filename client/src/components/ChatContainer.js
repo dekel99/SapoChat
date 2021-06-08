@@ -22,7 +22,6 @@ export default function ChatContanier(props) {
       hour: "2-digit",
       minute: "2-digit"
     });
-    console.log(time)
     return time
   }
 
@@ -50,13 +49,11 @@ export default function ChatContanier(props) {
   // Callback from server when somone entered chat **
   socket.on("details", (messagesDB, onlineUsers) => {
 
-    // console.log(Object.values(onlineUsers[0])[0])
+    // Disconnects user if try to enter from 2 tabs **
     const newUserName = Object.values(onlineUsers[0])[0]
     const newUserId = Object.values(onlineUsers[0])[1]
     userIdArr.push(newUserId)
     userNamesArr.push(newUserName)
-    console.log(userNamesArr)
-    console.log(userIdArr)
 
     function checkIfArrayIsUnique(myArray) {
       return myArray.length === new Set(myArray).size;
@@ -67,10 +64,8 @@ export default function ChatContanier(props) {
       props.catchLoggedUsers(onlineUsers)
       setChatlist(messagesDB)
       scrollToBot()
-    } else {
-        if (!checkIfArrayIsUnique(userIdArr)) { 
-          window.location.replace("http://localhost:3000/login")
-        }
+    } else if (!checkIfArrayIsUnique(userIdArr)){    
+        window.location.replace("http://localhost:3000/login")   
     }
   })
 

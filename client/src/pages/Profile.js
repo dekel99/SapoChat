@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import "../styles/App.css"
 import "../styles/profile.css"
 import Axios from "axios"
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
+import CreateIcon from '@material-ui/icons/Create';
 
 let fileName = ""
 var i = 0
@@ -13,8 +14,9 @@ function Profile() {
   const [newName, setNewName] = useState()
   const [usedNameErr, setUsedNameErr] = useState(false)
   const [shortErr, setShortErr] = useState(false)
-  const [file, setFile] = useState()
   const [currentImg, setCurrentImg] = useState(defaultUserPic)
+  const reader = new FileReader();
+
 
   // Auth user and return hes username **
   if (i<1){
@@ -34,8 +36,17 @@ function Profile() {
   // Update img file in client when pick img from computer **
   function fileChange(e) {
     if (e.target.files[0]){
-      fileName = e.target.files[0].name
-      setFile(e.target.files[0])
+      const fileVar = e.target.files[0]
+      fileName = fileVar.name
+
+      if (fileVar.type.match('image.*')) {
+        reader.readAsDataURL(fileVar);
+      }
+
+      reader.onload = function (e) {
+        setCurrentImg(reader.result)
+        uploadFile(fileVar)
+      }
     }
   }
 
@@ -53,7 +64,6 @@ function Profile() {
         url: "http://localhost:4000/change-name", 
         withCredentials: true, 
         data: {changeName: newName}}).then(res=> {
-          console.log(res.data.codeName)
           if(res.data.codeName==="DuplicateKey"){
             setUsedNameErr(true)
           } else {
@@ -66,10 +76,10 @@ function Profile() {
   }
 
   // Trigger when upload button clicked and send img file and name to server **
-  function uploadFile(e) {
+  function uploadFile(fileVar) {
     const data = new FormData()
     data.append("name", fileName)
-    data.append("file", file)
+    data.append("file", fileVar)
 
     Axios({method: "POST", url: "http://localhost:4000/upload", data: data, withCredentials: true
     }).then(res => {
@@ -79,20 +89,50 @@ function Profile() {
     })
   }
 
+
   return (
     <div className="register-block">
+
+      <div class="img-text-container">
+        <h3>Profile</h3>
+
+        <div class="avatar-upload">
+          <div class="avatar-edit">
+            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" onChange={fileChange}/>
+            <label for="imageUpload" ><CreateIcon/></label>
+          </div>
+
+          <div class="avatar-preview">
+            <div id="imagePreview" style={{backgroundImage: 'url(' + currentImg + ')'}}></div>
+          </div>
+        </div>
+      </div>
+
       <form onSubmit={changeName}>
-        <p>current name: {name}</p>
-        <label for="fname">Change Name:</label><br/>
-        <input type="text" placeholder="Your new name.." value={newName} onChange={e => {setNewName(e.target.value)}}/><br/>
+        <h3>Hi, {name}</h3>
+
+        <div className="new-name-input">
+          <TextField
+            type="text"
+            onChange={e => {setNewName(e.target.value)}}
+            value={newName}
+            id="standard-half-width"
+            label="Change your name here:"
+            style={{ margin: 5 }}
+            placeholder="Your new name.."
+            fullWidth
+            margin="normal"
+            InputLabelProps={{
+                shrink: true,
+            }}
+          />
+        </div>
         {shortErr && <p className="register-err">Name must be at least 3 charecters</p>}
         {usedNameErr && <p className="register-err">This name allready in use</p>}
         <Button className="change-user-name-submit" variant="contained" color="primary" type="submit" value="Submit">Submit</Button>
       </form>
-        <p>Upload your picture: </p>
-        <input type="file" id="myFile" name="filename" onChange={fileChange} hidden></input>
-        <label for="myFile"><img className="default-user-pic-profile" src={currentImg} alt="profile-pic"/></label><br/>
-        {currentImg ? <Button variant="contained" color="primary" value="Upload" onClick={uploadFile}>Click to upload</Button> : null}
+
+
     </div>
   )
 }
