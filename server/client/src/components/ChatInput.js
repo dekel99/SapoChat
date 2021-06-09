@@ -55,7 +55,7 @@ const ChatInput = (props) => {
         <div >
           <div className="emoji-picker">
             <span>
-              {emojiChartOpen ? null : <Picker  title="Pick Your Emoji" style={{display: "", width: "16rem", marginTop: "1rem"}} set="apple" onSelect={addEmoji} />}
+              {emojiChartOpen ? null : <Picker  title="Pick Your Emoji" style={{width: "16rem", marginTop: "1rem"}} set="google" onSelect={addEmoji} />}
             </span>
           </div>
           <div className="chat-input">

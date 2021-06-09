@@ -56,7 +56,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // Mongoose config **
-mongoose.connect(MONGO_URL, {
+mongoose.connect( process.env.MONGODB_URI ||MONGO_URL, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useFindAndModify: false,
@@ -172,6 +172,7 @@ io.on('connection', (socket) => {
         })
         saveNewMess()
       }
+      console.log(socket.id)
     }) 
 
     async function saveNewMess(){
@@ -408,6 +409,10 @@ app.get("/check-user-exist/:username", function(req, res){
 })
 
 // --------------------------------------------END ROUTES-----------------------------------------
+
+if (process.env.NODE_ENV === "production"){
+  app.use(express.static("./client/build"))
+}
 
 // Port Config **
 let port = process.env.PORT;
