@@ -25,12 +25,12 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 
 // Reformating **
-if (process.env.NODE_ENV === "production"){
-  app.use(express.static(path.join("./client/build")))
-  app.use((req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
-  })
-}
+// if (process.env.NODE_ENV === "production"){
+//   app.use(express.static(path.join("./client/build")))
+//   app.use((req, res, next) => {
+//     res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
+//   })
+// }
 
 const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env 
 
