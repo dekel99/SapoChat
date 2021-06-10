@@ -52,23 +52,23 @@ export default function ChatContanier(props) {
 
     // Disconnects user if try to enter from 2 tabs **
     document.getElementById("standard-full-width").focus();
-    const newUserName = Object.values(onlineUsers[0])[0]
-    const newUserId = Object.values(onlineUsers[0])[1]
-    userIdArr.push(newUserId)
-    userNamesArr.push(newUserName)
+    // const newUserName = Object.values(onlineUsers[0])[0]
+    // const newUserId = Object.values(onlineUsers[0])[1]
+    // userIdArr.push(newUserId)
+    // userNamesArr.push(newUserName)
 
-    function checkIfArrayIsUnique(myArray) {
-      return myArray.length === new Set(myArray).size;
-    }
+    // function checkIfArrayIsUnique(myArray) {
+    //   return myArray.length === new Set(myArray).size;
+    // }
 
-    if (checkIfArrayIsUnique(userNamesArr)) { 
+    // if (checkIfArrayIsUnique(userNamesArr)) { 
       setloggedUsers(onlineUsers)
       props.catchLoggedUsers(onlineUsers)
       setChatlist(messagesDB)
       scrollToBot()
-    } else if (!checkIfArrayIsUnique(userIdArr)) { 
-      window.location.replace("http://localhost:3000/login")
-    }
+    // } else if (!checkIfArrayIsUnique(userIdArr)) { 
+      // window.location.replace("http://localhost:3000/login")
+    // }
   })
 
   // Runs when somone quit **
