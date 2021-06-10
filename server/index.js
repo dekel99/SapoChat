@@ -25,6 +25,9 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 
 // Reformating **
+if (process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join("./client/build")))
+}
 const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env 
 
 // Multer storage config **
@@ -56,7 +59,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // Mongoose config **
-mongoose.connect( process.env.MONGODB_URI ||MONGO_URL, {
+mongoose.connect( process.env.MONGODB_URI || MONGO_URL, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useFindAndModify: false,
@@ -409,10 +412,6 @@ app.get("/check-user-exist/:username", function(req, res){
 })
 
 // --------------------------------------------END ROUTES-----------------------------------------
-
-if (process.env.NODE_ENV === "production"){
-  app.use(express.static("./client/build"))
-}
 
 // Port Config **
 let port = process.env.PORT;
