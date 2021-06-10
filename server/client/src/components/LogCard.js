@@ -25,7 +25,7 @@ function LogCard() {
                 </div>
 
                 <div className="local-auth-boutton">
-                <Button variant="contained" color="primary" type="submit"><a href={ "https://sapochat.herokuapp.com/login" || "http://localhost:3000/login"} className="login-button">Login</a></Button>
+                <Button variant="contained" color="primary" type="submit"><a href="http://localhost:3000/login" className="login-button">Login</a></Button>
                 </div>
 
                 <div className="register">
