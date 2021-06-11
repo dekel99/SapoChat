@@ -28,17 +28,17 @@ app.use(bodyParser.json());
 
 
 
-// app.use(express.static(path.join("./client/build")))
-// app.use((req, res, next) => {
-//   res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
-// })
+app.use(express.static(path.join("./client/build")))
+app.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
+})
 
-if (process.env.NODE_ENV === "production"){
-  app.use(express.static(path.join("./client/build")))
-  app.use((req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
-  })
-}
+// if (process.env.NODE_ENV === "production"){
+//   app.use(express.static(path.join("./client/build")))
+//   app.use((req, res, next) => {
+//     res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
+//   })
+// }
 
 
 // Reformating **
