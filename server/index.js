@@ -22,27 +22,27 @@ require("dotenv").config()
 // App config **
 app.use(cors({ origin: "http://localhost:3000", credentials: true})) // Enable getting requests from client
 app.use(bodyParser.urlencoded({extended: true}))
-// app.use(express.static("public"));
+app.use(express.static("public"));
 app.use(bodyParser.json());
 
 
 
 
-app.use(express.static(path.join("./client/build")))
-app.use((req, res, next) => {
-  res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
-})
+// app.use(express.static(path.join("./client/build")))
+// app.use((req, res, next) => {
+//   res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
+// })
 
-// if (process.env.NODE_ENV === "production"){
-//   app.use(express.static(path.join("./client/build")))
-//   app.use((req, res, next) => {
-//     res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
-//   })
-// }
+if (process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join("./client/build")))
+  app.use((req, res, next) => {
+    res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
+  })
+}
 
 
 // Reformating **
-const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env 
+const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, SERVER_URL, FRONT_URL } = process.env 
 
 // Multer storage config **
 const storage = multer.diskStorage({
@@ -73,7 +73,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // Mongoose config **
-mongoose.connect( process.env.MONGODB_URI || MONGO_URL, {
+mongoose.connect( MONGO_URL, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useFindAndModify: false,
@@ -120,7 +120,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:4000/auth/google/sapochat",
+  callbackURL: SERVER_URL + "/auth/google/sapochat",
   userProfileUrl: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
 function(accessToken, refreshToken, profile, cb) {
@@ -137,7 +137,7 @@ function(accessToken, refreshToken, profile, cb) {
 passport.use(new FacebookStrategy({
   clientID: FACEBOOK_CLIENT_ID,
   clientSecret: FACEBOOK_CLIENT_SECRET,
-  callbackURL: "http://localhost:4000/auth/facebook/sapochat"
+  callbackURL: SERVER_URL + "/auth/facebook/sapochat"
 },
 function(accessToken, refreshToken, profile, cb) {
   User.findOrCreate({ facebookId: profile.id }, function (err, user) {
@@ -260,7 +260,7 @@ io.on('connection', (socket) => {
 // --------------------------------------------POST ROUTES-----------------------------------------
 
 // Saves new user in database and authenticate him **
-app.post('/register', function (req, res) {
+app.post('/server/register', function (req, res) {
   const { username, password } = req.body
   User.register({username: username}, password, function(err, user){
     if (err){
@@ -281,7 +281,7 @@ app.post('/register', function (req, res) {
 })
 
 // Authenticate user with entered details from login form **
-app.post("/login", function(req, res){
+app.post("/server/login", function(req, res){
   const { username , password } = req.body
 
   const user = new User({
@@ -301,7 +301,7 @@ app.post("/login", function(req, res){
 })
 
 // Change username in database **
-app.post("/change-name", function(req, res){
+app.post("/server/change-name", function(req, res){
   const userName = req.user.username
   const newUserName = req.body.changeName
 
@@ -314,12 +314,12 @@ app.post("/change-name", function(req, res){
       }
     })
   } else {
-    res.redirect("http://localhost:3000/")
+    res.redirect(FRONT_URL)
   }
 })
 
 // Upload img **
-app.post("/upload", upload.single("file"), async(req, res) => {
+app.post("/server/upload", upload.single("file"), async(req, res) => {
 
   if (req.isAuthenticated()){
     const {username} = req.user
@@ -333,7 +333,7 @@ app.post("/upload", upload.single("file"), async(req, res) => {
       }
     })
 
-    await User.findOneAndUpdate({username: username}, {profilePic: "http://localhost:4000/public/uploads/" + req.file.filename, picPath: "./public/uploads/" + req.file.filename}, err => { // Insert new img to database
+    await User.findOneAndUpdate({username: username}, {profilePic: SERVER_URL + "/public/uploads/" + req.file.filename, picPath: "./public/uploads/" + req.file.filename}, err => { // Insert new img to database
       if (!err){
 
         res.send(req.file.filename)
@@ -346,7 +346,7 @@ app.post("/upload", upload.single("file"), async(req, res) => {
 // --------------------------------------------GET ROUTES-----------------------------------------
 
 // Checks if user is auth and sends username to client and redirect **
-app.get("/profile", function(req, res){
+app.get("/server/profile", function(req, res){
   
   if (req.isAuthenticated()){   
     const {username} = req.user
@@ -357,53 +357,53 @@ app.get("/profile", function(req, res){
       }
     })
   } else {
-    res.redirect("http://localhost:3000/login")
+    res.redirect( FRONT_URL + "/login")
   } 
 })
 
 // If user is auth and sends true if he is **
-app.get("/auth", function(req, res){
+app.get("/server/auth", function(req, res){
   if (req.isAuthenticated()){    
     res.send(true)
   } else {
-    res.redirect("http://localhost:3000/")
+    res.redirect(FRONT_URL)
   } 
 })
 
 // Logout user **
-app.get("/logout", function(req, res){
+app.get("/server/logout", function(req, res){
   req.logout()
-  res.redirect("http://localhost:3000/login")
+  res.redirect( FRONT_URL + "/login")
 })
 
 // Google auth **
-app.get("/auth/google", passport.authenticate("google", {
+app.get("/server/auth/google", passport.authenticate("google", {
   scope: ['profile']
 }));
 
-app.get("/auth/google/sapochat",
-passport.authenticate("google", { failureRedirect: "http://localhost:3000/login" }),
+app.get("/server/auth/google/sapochat",
+passport.authenticate("google", { failureRedirect: FRONT_URL + "/login" }),
 function(req, res) {
-  res.redirect('http://localhost:3000/'); // Successful authentication, redirect home
+  res.redirect(FRONT_URL); // Successful authentication, redirect home
 });
 
 // Facebook auth **
-app.get("/auth/facebook",
+app.get("/server/auth/facebook",
 passport.authenticate("facebook", {scope: ['email']}));
 
-app.get("/auth/facebook/sapochat",
-passport.authenticate("facebook", { failureRedirect: "http://localhost:3000/login" }),
+app.get("/server/auth/facebook/sapochat",
+passport.authenticate("facebook", { failureRedirect: FRONT_URL + "/login" }),
 function(req, res) {
   // Successful authentication, redirect home.
-  res.redirect('http://localhost:3000/');
+  res.redirect(FRONT_URL);
 });
 
-app.get("/public/uploads/:picId", function(req, res){
+app.get("/server/public/uploads/:picId", function(req, res){
   const picId = req.params.picId
   res.sendFile(__dirname + "/public/uploads/" + picId)
 })
 
-app.get("/check-user-exist/:username", function(req, res){
+app.get("/server/check-user-exist/:username", function(req, res){
   const enteredName = req.params.username
   let userLogged = false
 
@@ -426,9 +426,6 @@ app.get("/check-user-exist/:username", function(req, res){
   })
 })
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname+'/client/build/index.html'));
-// });
 
 // --------------------------------------------END ROUTES-----------------------------------------
 

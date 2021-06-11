@@ -15,7 +15,7 @@ function Home(props) {
 
     // Runs when guest enters his name **
     function submitName(name){
-      Axios.get("http://localhost:4000/check-user-exist/" + name).then(res => {
+      Axios.get( process.env.REACT_APP_SERVER_URL + "/check-user-exist/" + name).then(res => {
         if (res.data){
           setNameExistErr(true)
         } else {
@@ -30,7 +30,7 @@ function Home(props) {
     Axios({
       method:"GET",
       withCredentials: true,
-      url:"http://localhost:4000/profile"
+      url: process.env.REACT_APP_SERVER_URL + "/profile"
     }).then(res => {
       if (res){
         setId(res.data[0].username)

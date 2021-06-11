@@ -48,7 +48,7 @@ export default function Navbar(props) {
   // Sends user to server to logout **
   function logout(){
     handleClose()
-    window.location.replace("http://localhost:4000/logout");
+    window.location.replace( process.env.REACT_APP_SERVER_URL + "/logout");
   }
 
   // Checks if user is auth and redirect to profile page **
@@ -58,10 +58,10 @@ export default function Navbar(props) {
     Axios({
       method:"GET",
       withCredentials: true,
-      url:"http://localhost:4000/profile"
+      url: process.env.REACT_APP_SERVER_URL + "/profile"
     }).then(res => {
       if (res){
-        window.location.replace("http://localhost:3000/profile")
+        window.location.replace( process.env.REACT_APP_FRONT_URL + "/profile")
       }
     })  
   }
@@ -82,7 +82,7 @@ export default function Navbar(props) {
           </IconButton>
           
           <Typography variant="h6" className={classes.title}>
-            <a href="http://localhost:3000/">SapoChat V 1.0</a>
+            <a href={process.env.REACT_APP_FRONT_URL + "/"}>SapoChat V 1.0</a>
           </Typography>
           
           {isAuth && (

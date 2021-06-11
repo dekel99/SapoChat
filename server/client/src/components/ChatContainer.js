@@ -5,7 +5,7 @@ import ChatBubble from './ChatBubble';
 import io from "socket.io-client"
 import UsersList from './UsersList';
 
-const socket = io.connect("http://localhost:4000")
+const socket = io.connect("http://localhost:4000/" || "https://sapochat.herokuapp.com")
 var i = 0
 
 export default function ChatContanier(props) {
@@ -67,7 +67,7 @@ export default function ChatContanier(props) {
       setChatlist(messagesDB)
       scrollToBot()
     // } else if (!checkIfArrayIsUnique(userIdArr)) { 
-      // window.location.replace("http://localhost:3000/login")
+      // window.location.replace( process.env.REACT_APP_FRONT_URL "/login")
     // }
   })
 

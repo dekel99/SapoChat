@@ -18,11 +18,11 @@ function Login() {
 
         Axios({
             method: "POST", 
-            url: "http://localhost:4000/login", 
+            url: process.env.REACT_APP_SERVER_URL + "/login", 
             withCredentials: true, 
             data: userDetails}).then(res=> { console.log(res)
                 if (res.data){
-                    window.location.replace("http://localhost:3000/")   
+                    window.location.replace(process.env.REACT_APP_FRONT_URL + "/")   
                 } 
         }).catch(err => {if(err){setLogErr(true)}})
     }

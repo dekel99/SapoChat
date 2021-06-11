@@ -29,7 +29,7 @@ function Register() {
             else if(password === confirm){
                 Axios({
                     method: "POST", 
-                    url: "http://localhost:4000/register", 
+                    url: process.env.REACT_APP_SERVER_URL + "/register", 
                     withCredentials: true, 
                     data: userDetails}).then(res=> {
                         if (res.data.name==="UserExistsError"){
@@ -38,7 +38,7 @@ function Register() {
                             setShortErr(false)
                             setMinReqPasswordErr(false)
                         } else {
-                            window.location.replace("http://localhost:3000/")
+                            window.location.replace( process.env.REACT_APP_FRONT_URL + "/")
                         }
                     }).catch(err => {console.log(err)})
             } else {

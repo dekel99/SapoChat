@@ -19,7 +19,7 @@ function App() {
   Axios({
     method:"GET",
     withCredentials: true,
-    url:"http://localhost:4000/auth"
+    url: process.env.REACT_APP_SERVER_URL + "/auth"
   }).then(res => {
     if (res){
       setIsAuth(res.data)

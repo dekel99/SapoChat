@@ -39,7 +39,7 @@ function Profile() {
     Axios({
       method:"GET",
       withCredentials: true,
-      url:"http://localhost:4000/profile"
+      url: process.env.REACT_APP_SERVER_URL + "/profile"
     }).then(res => {
       if (res){
        setName(res.data[0].username)
@@ -61,7 +61,7 @@ function Profile() {
       setShortErr(false)
       Axios({
         method: "POST", 
-        url: "http://localhost:4000/change-name", 
+        url: process.env.REACT_APP_SERVER_URL + "/change-name", 
         withCredentials: true, 
         data: {changeName: newName}}).then(res=> {
           if(res.data.codeName==="DuplicateKey"){
@@ -81,9 +81,9 @@ function Profile() {
     data.append("name", fileName)
     data.append("file", fileVar)
 
-    Axios({method: "POST", url: "http://localhost:4000/upload", data: data, withCredentials: true
+    Axios({method: "POST", url: process.env.REACT_APP_SERVER_URL + "/upload", data: data, withCredentials: true
     }).then(res => {
-      setCurrentImg("http://localhost:4000/public/uploads/" + res.data) // Gets callback from server of img name and update it **
+      setCurrentImg( process.env.REACT_APP_SERVER_URL + "/public/uploads/" + res.data) // Gets callback from server of img name and update it **
     }).catch(err => {
       console.log(err)
     })
