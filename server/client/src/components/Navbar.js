@@ -48,7 +48,7 @@ export default function Navbar(props) {
   // Sends user to server to logout **
   function logout(){
     handleClose()
-    window.location.replace( process.env.REACT_APP_SERVER_URL + "/logout");
+    window.location.replace("/server/logout");
   }
 
   // Checks if user is auth and redirect to profile page **
@@ -82,7 +82,7 @@ export default function Navbar(props) {
           </IconButton>
           
           <Typography variant="h6" className={classes.title}>
-            <a href={process.env.REACT_APP_FRONT_URL + "/"}>SapoChat V 1.0</a>
+            <a href={process.env.REACT_APP_FRONT_URL + "/"}>SapoChat V 1.00</a>
           </Typography>
           
           {isAuth && (

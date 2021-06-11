@@ -5,7 +5,7 @@ import ChatBubble from './ChatBubble';
 import io from "socket.io-client"
 import UsersList from './UsersList';
 
-const socket = io.connect("http://localhost:4000/" || "https://sapochat.herokuapp.com")
+const socket = io.connect(process.env.REACT_APP_SOCKET_IO)
 var i = 0
 
 export default function ChatContanier(props) {
