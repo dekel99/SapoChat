@@ -28,10 +28,7 @@ app.use(bodyParser.json());
 
 
 
-app.use(express.static(path.join("./client/build")))
-app.use((req, res, next) => {
-  res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
-})
+
 
 // if (process.env.NODE_ENV === "production"){
 //   app.use(express.static(path.join("./client/build")))
@@ -428,6 +425,12 @@ app.get("/server/check-user-exist/:username", function(req, res){
 
 
 // --------------------------------------------END ROUTES-----------------------------------------
+
+
+app.use(express.static(path.join("./client/build")))
+app.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
+})
 
 // Port Config **
 let port = process.env.PORT;
