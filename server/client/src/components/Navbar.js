@@ -82,7 +82,7 @@ export default function Navbar(props) {
           </IconButton>
           
           <Typography variant="h6" className={classes.title}>
-            <a href={process.env.REACT_APP_FRONT_URL + "/"}>SapoChat V 1.00</a>
+            <a href={process.env.REACT_APP_FRONT_URL + "/"}>SapoChat V 1.0</a>
           </Typography>
           
           {isAuth && (

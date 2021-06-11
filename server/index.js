@@ -26,18 +26,6 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 
 
-
-
-
-
-// if (process.env.NODE_ENV === "production"){
-//   app.use(express.static(path.join("./client/build")))
-//   app.use((req, res, next) => {
-//     res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
-//   })
-// }
-
-
 // Reformating **
 const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, SERVER_URL, FRONT_URL } = process.env 
 
@@ -425,7 +413,7 @@ app.get("/server/check-user-exist/:username", function(req, res){
 
 // --------------------------------------------END ROUTES-----------------------------------------
 
-
+// If URL is not for API serves the React files staticly **
 app.use(express.static(path.join("./client/build")))
 app.use((req, res, next) => {
   res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
