@@ -15,23 +15,24 @@ const passportLocalMongoose = require("passport-local-mongoose")
 const cors = require ("cors")
 const multer = require ("multer")
 const fs = require('fs')
+const path = require ("path")
 require("dotenv").config()
 
 
 // App config **
 app.use(cors({ origin: "http://localhost:3000", credentials: true})) // Enable getting requests from client
 app.use(bodyParser.urlencoded({extended: true}))
-app.use(express.static("public"));
+// app.use(express.static("public"));
 app.use(bodyParser.json());
 
 
-app.use(express.static(path.join(__dirname, 'client/build')));
 
+
+app.use(express.static(path.join("./client/build")))
 app.use((req, res, next) => {
   res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
 })
 
-// Reformating **
 // if (process.env.NODE_ENV === "production"){
 //   app.use(express.static(path.join("./client/build")))
 //   app.use((req, res, next) => {
@@ -40,7 +41,7 @@ app.use((req, res, next) => {
 // }
 
 
-
+// Reformating **
 const { MONGO_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET } = process.env 
 
 // Multer storage config **
