@@ -16,7 +16,7 @@ function Home(props) {
     // Runs when guest enters his name **
     function submitName(name){
       Axios.get( process.env.REACT_APP_SERVER_URL + "/check-user-exist/" + name).then(res => {
-        if (res.data){
+        if (res.data===true){
           setNameExistErr(true)
         } else {
           setId(name)
@@ -32,7 +32,7 @@ function Home(props) {
       withCredentials: true,
       url: process.env.REACT_APP_SERVER_URL + "/profile"
     }).then(res => {
-      if (res){
+      if (res.data[0].username){
         setId(res.data[0].username)
         localStorage.setItem("nameKey", res.data[0].username)  
         setmapTrigger(true)

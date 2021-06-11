@@ -21,8 +21,8 @@ function App() {
     withCredentials: true,
     url: process.env.REACT_APP_SERVER_URL + "/auth"
   }).then(res => {
-    if (res){
-      setIsAuth(res.data)
+    if (res.data===true){
+      setIsAuth(true)
     }
   })
 
