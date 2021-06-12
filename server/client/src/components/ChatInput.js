@@ -15,7 +15,7 @@ const ChatInput = (props) => {
 
   // Saves text value **
   function handleTextInput(event){
-      setText(event.target.value)
+    setText(event.target.value)
   }
 
   // Trigers when send is clicked and fires functions on parent components that handle sending text to server **
@@ -25,6 +25,7 @@ const ChatInput = (props) => {
       props.sendMessToServer(text)
       setText("")
       setEmojiChartOpen(true)
+      document.getElementById("standard-full-width").focus();
     }
   }
 
