@@ -6,7 +6,7 @@
   margin-bottom: 2rem;
 }
 
-@media (max-width: 800px) {
+@media (max-aspect-ratio: 1/1.5), (max-width: 800px) {
   .enter-name-form{
     width: 70%;
     text-align: center;

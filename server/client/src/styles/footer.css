@@ -9,7 +9,7 @@ footer {
     width: 100%;
 }
 
-@media (max-width: 800px){
+@media (max-aspect-ratio: 1/1.5), (max-width: 800px){
     footer {
         display: none
     }

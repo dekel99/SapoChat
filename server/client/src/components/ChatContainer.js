@@ -50,25 +50,11 @@ export default function ChatContanier(props) {
   // Callback from server when somone entered chat **
   socket.on("details", (messagesDB, onlineUsers) => {
 
-    // Disconnects user if try to enter from 2 tabs **
     document.getElementById("standard-full-width").focus();
-    // const newUserName = Object.values(onlineUsers[0])[0]
-    // const newUserId = Object.values(onlineUsers[0])[1]
-    // userIdArr.push(newUserId)
-    // userNamesArr.push(newUserName)
-
-    // function checkIfArrayIsUnique(myArray) {
-    //   return myArray.length === new Set(myArray).size;
-    // }
-
-    // if (checkIfArrayIsUnique(userNamesArr)) { 
-      setloggedUsers(onlineUsers)
-      props.catchLoggedUsers(onlineUsers)
-      setChatlist(messagesDB)
-      scrollToBot()
-    // } else if (!checkIfArrayIsUnique(userIdArr)) { 
-      // window.location.replace( process.env.REACT_APP_FRONT_URL "/login")
-    // }
+    setloggedUsers(onlineUsers)
+    props.catchLoggedUsers(onlineUsers)
+    setChatlist(messagesDB)
+    scrollToBot()
   })
 
   // Runs when somone quit **
