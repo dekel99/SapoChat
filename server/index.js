@@ -20,7 +20,7 @@ require("dotenv").config()
 
 
 // App config **
-app.use(cors({ origin: "http://localhost:3000", credentials: true})) // Enable getting requests from client
+app.use(cors({ origin: "*", credentials: true})) // Enable getting requests from client
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static("public"));
 app.use(bodyParser.json());
@@ -414,10 +414,12 @@ app.get("/server/check-user-exist/:username", function(req, res){
 // --------------------------------------------END ROUTES-----------------------------------------
 
 // If URL is not for API serves the React files staticly **
-app.use(express.static(path.join("./client/build")))
-app.use((req, res, next) => {
-  res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
-})
+if (process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join("./client/build")))
+  app.use((req, res, next) => {
+    res.sendFile(path.resolve(__dirname, "client/build", "index.html"))
+  })
+}
 
 // Port Config **
 let port = process.env.PORT;
