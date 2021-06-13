@@ -26,13 +26,13 @@
   overflow: auto;
   bottom: 0em;
   padding-bottom: 1rem;
-
 }
 
 @media (max-aspect-ratio: 1/1.5), (max-width: 800px) {
   .chat-box{
-    height: calc(100vh - 130px);
     width: 100%;
     border-radius: 0px;
+    position: absolute;
+    bottom: 70px;
   }
 }

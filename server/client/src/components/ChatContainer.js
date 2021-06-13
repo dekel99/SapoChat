@@ -81,13 +81,12 @@ export default function ChatContanier(props) {
       <div className="logged-users-container">
         <UsersList loggedUsers={loggedUsers}/>
       </div>
-
       <div className="chat-box" id="chat-id">
         {chatList.map((message, index) => { 
           return (
-          <ChatBubble key={index} message={message.message} name={message.name} time={message.time} />
-          )
-        })}
+            <ChatBubble key={index} message={message.message} name={message.name} time={message.time} />
+            )
+          })}
           <ChatInput handleSendText={handleSendText} sendMessToServer={sendMessToServer}/>
       </div>
     </div>

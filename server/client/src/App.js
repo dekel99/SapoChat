@@ -33,7 +33,7 @@ function App() {
   return (
     <Router>
       <main>
-        <div className="App">
+        <div className="App" id="navbar-container">
           <Navbar loggedUsers={loggedUsers} isAuth={isAuth}/>
         </div>
           <Switch> 
