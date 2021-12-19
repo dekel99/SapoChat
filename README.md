@@ -1,6 +1,6 @@
 # SapoChat
 
-<img width="350" src="https://res.cloudinary.com/ddijwyj2m/image/upload/v1628202415/assetes-portfolio/bfcpqncvypgjj94jsvo8.jpg" alt="app-review"/>
+<img width="350" onclick="window.open('http://sapochat.herokuapp.com','mywindow')" style="cursor: pointer" class="app-preview" src="https://res.cloudinary.com/ddijwyj2m/image/upload/v1628202415/assetes-portfolio/bfcpqncvypgjj94jsvo8.jpg" alt="app-review"/>
 
 Click on [SapoChat](http://sapochat.herokuapp.com) to enter the app
 
