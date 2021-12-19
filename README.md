@@ -1,6 +1,6 @@
 # SapoChat
 
-[sapochat](https://res.cloudinary.com/ddijwyj2m/image/upload/v1628202415/assetes-portfolio/bfcpqncvypgjj94jsvo8.jpg)
+![sapochat](https://res.cloudinary.com/ddijwyj2m/image/upload/v1628202415/assetes-portfolio/bfcpqncvypgjj94jsvo8.jpg)
 Click on [SapoChat](http://sapochat.herokuapp.com) to enter the app
 
 ## Description
